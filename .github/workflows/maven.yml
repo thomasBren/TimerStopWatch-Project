@@ -31,12 +31,17 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Surefire Report
       uses: ScaCap/action-surefire-report@v1.7.0
-    − name : Generate quality report
-      env: 
+    - name: Generate quality report
+      env:
         SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}}
         SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
       run: >
-        mvnn -B verify org.sonarsource.scanner.maven:sonar
+        mvnn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        -Dsonar.host.url=https://sonarcloud.io
+        -Dsonar.organization=ThomasBren
+        -Dsonar.projectKey=ThomasBren_TimerStopWatch-Project
+        -Dsonar.branch.name=main
+        -Dsonar.login=$SONAR_TOKEN
   
 
 
